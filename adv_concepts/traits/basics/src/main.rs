@@ -1,5 +1,8 @@
 pub trait SpecialMove {
     fn sp_move (&self) -> String;
+    fn summarize (&self) -> String {
+        String::from("Every mon has a special move.")
+    }
 }
 
 struct Pokemon {
@@ -9,17 +12,16 @@ struct Pokemon {
     pub types: Vec<String>
 }
 
-impl SpecialMove for Pokemon {
-    fn sp_move (&self) -> String {
-        format!("id: {}, name: {}, sp_move: {}", self.id, self.name, self.special_move)
-    }
-}
-
 struct Digimon {
     pub name: String,
     pub special_move: String
 }
 
+impl SpecialMove for Pokemon {
+    fn sp_move (&self) -> String {
+        format!("id: {}, name: {}, sp_move: {}", self.id, self.name, self.special_move)
+    }
+}
 
 impl SpecialMove for Digimon {
     fn sp_move (&self) -> String {
@@ -40,6 +42,13 @@ fn main() {
         special_move: String::from("Terra Destroyer"),
     };
 
+    println!("{}", charizard.summarize());
     println!("{}", charizard.sp_move());
+    println!("{}", charizard.summarize());
     println!("{}", black_war_greymon.sp_move());
+    notify(&charizard);
+}
+
+pub fn notify(mon: &impl SpecialMove) {
+    println!("Notification: {}", mon.summarize());
 }
