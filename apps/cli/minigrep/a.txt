@@ -1,0 +1,1 @@
+This is a sample file to test grep, whether or not it can find out patterns from files.
