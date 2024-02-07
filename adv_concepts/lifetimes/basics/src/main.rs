@@ -3,7 +3,7 @@ fn main() {
 
     {
         let x = 5;
-        r = &x;
+        r = x.clone();
     }
 
     println!("r: {}", r);
