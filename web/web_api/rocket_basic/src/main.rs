@@ -162,19 +162,29 @@ async fn edit_todo_handler (
 async fn delete_todo_handler (
     id: String,
     data: &State<AppState>
-) -> Result <Status, Custom<Json<GenericResponse>>> {
+) -> Result <Json<TodoListResponse>, Custom<Json<GenericResponse>>> {
 
     let mut vec = data.todo_db.lock().unwrap();
 
     for todo in vec.iter_mut() {
         if todo.id == Some(id.clone()) {
             vec.retain(|t| t.id != Some(id.to_owned()));
-            return Ok(Status::NoContent)
+            let todos: Vec<Todo> = vec.clone().into_iter().collect();
+            let json_resp = TodoListResponse {
+                status: String::from("Success"),
+                results: todos.len(),
+                todos
+            };
+            return Ok(Json(json_resp))
         }
     }
 
-    let 
 
 
-    
+
+    let err_resp = GenericResponse {
+        status: String::from("Failure"),
+        message: format!("Todo with id: {} doesn't exist to delete.", id)
+    };
+    Err(Custom(Status::NotFound, Json(err_resp)))
 }
