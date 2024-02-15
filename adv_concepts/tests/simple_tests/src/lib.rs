@@ -17,4 +17,9 @@ mod tests {
         let result = add(2, 2);
         assert_eq!(result, 5);
     }
+
+    #[test]
+    fn panics() {
+        panic!("Test function panicked!");
+    }
 }
