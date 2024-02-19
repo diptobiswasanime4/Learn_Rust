@@ -1,3 +1,11 @@
+/*
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+*/
+
+
 fn safe_divide(numerator: i32, denominator: i32) -> Result<i32, &'static str> {
     if denominator == 0 {
         Err("Division by zero is not allowed.")
